@@ -106,10 +106,10 @@ pipeline{
                     repository: 'Shopping-Cart',
                     credentialsId: 'nexuslogin',
                     artifacts: [
-                        artifactId: 'shopping-cart',
+                        [artifactId: 'shopping-cart',
                         classifier: '', 
                         file: 'target/shopping-cart-0.0.1-SNAPSHOT.jar',
-                        type: 'jar'
+                        type: 'jar']
                     ]
                 )
             }
