@@ -38,9 +38,17 @@ pipeline{
             // }
         }
 
+
+        stage('Checkstyle'){
+
+            steps{
+
+                sh 'mvn checkstyle:checkstyle'
+            }
+        }
         // Third Stage (OWASP)
 
-        stage('OASP Analysis'){
+        stage('OWASP Analysis'){
 
             steps{
 
