@@ -93,7 +93,7 @@ pipeline{
 
         // Seventh Stage (Uploading To Nexus)
 
-    //     // stage('Nexus'){
+         stage('Nexus'){
 
             steps{
 
