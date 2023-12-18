@@ -90,5 +90,28 @@ pipeline{
                 }
             }
         }
+
+        // Seventh Stage (Uploading To Nexus)
+
+        stage('Nexus'){
+
+            steps{
+
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '172.31.87.104:8081',
+                    groupid: 'QA',
+                    repositry: 'Shopping-Cart'
+                    credentialsId: 'nexuslogin',
+                    artifacts: [
+                        artifactId: 'shopping-cart',
+                        classifier: '', 
+                        file: 'target/shopping-cart-0.0.1-SNAPSHOT.jar',
+                        type: 'jar'
+                    ]
+                )
+            }
+        }
     }
 }
