@@ -81,7 +81,7 @@ pipeline{
 
                 withSonarQubeEnv('SONAR'){
 
-                    sh '''${scannerHome}/bin/sonar-scanne -Dsonar.projectName=Shopping-Cart \
+                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
                     -Dsonar.projectKey=Shopping-Cart \
                     -Dsonar.projectValue=1.0 \
                     -Dsonar.java.binaries=. ''' 
