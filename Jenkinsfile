@@ -29,13 +29,13 @@ pipeline{
                 sh 'mvn install -DskipTests'
             }
 
-            // post{
-            //     success{
+            post{
+                success{
 
-            //         echo 'Archieving The Artifact ...'
-            //         archiveArtifacts artifacts: '**/*.jar'
-            //     }
-            // }
+                    echo 'Archieving The Artifact ...'
+                    archiveArtifacts artifacts: '**/*.jar'
+                }
+            }
         }
 
         // Third Stage (CheckStyle With Maven)
@@ -93,26 +93,26 @@ pipeline{
 
         // Seventh Stage (Uploading To Nexus)
 
-        stage('Nexus'){
+        // stage('Nexus'){
 
-            steps{
+        //     steps{
 
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '172.31.87.104:8081',
-                    groupId: 'QA',
-                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: 'Shopping-Cart',
-                    credentialsId: 'nexuslogin',
-                    artifacts: [
-                        artifactId: 'shopping-cart',
-                        classifier: '', 
-                        file: 'target/shopping-cart-0.0.1-SNAPSHOT.jar',
-                        type: 'jar'
-                    ]
-                )
-            }
-        }
+        //         nexusArtifactUploader(
+        //             nexusVersion: 'nexus3',
+        //             protocol: 'http',
+        //             nexusUrl: '172.31.87.104:8081',
+        //             groupId: 'QA',
+        //             version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+        //             repository: 'Shopping-Cart',
+        //             credentialsId: 'nexuslogin',
+        //             artifacts: [
+        //                 artifactId: 'shopping-cart',
+        //                 classifier: '', 
+        //                 file: 'target/shopping-cart-0.0.1-SNAPSHOT.jar',
+        //                 type: 'jar'
+        //             ]
+        //         )
+        //     }
+        // }
     }
 }
