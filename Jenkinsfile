@@ -101,7 +101,7 @@ pipeline{
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     nexusUrl: '172.31.87.104:8081',
-                    groupid: 'QA',
+                    groupId: 'QA',
                     version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
                     repository: 'Shopping-Cart',
                     credentialsId: 'nexuslogin',
