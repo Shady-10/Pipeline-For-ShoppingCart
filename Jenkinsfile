@@ -84,6 +84,8 @@ pipeline{
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
                     -Dsonar.projectKey=Shopping-Cart \
                     -Dsonar.projectValue=1.0 \
+                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
                     -Dsonar.java.binaries=. ''' 
                 }
             }
