@@ -38,7 +38,13 @@ pipeline{
             // }
         }
 
+        stage('Unit Testing'){
 
+            steps{
+
+                sh 'mvn test'
+            }
+        }
         stage('Checkstyle'){
 
             steps{
