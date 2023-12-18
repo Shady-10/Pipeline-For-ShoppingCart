@@ -84,7 +84,7 @@ pipeline{
                     sh '''${scannerHome}/bin/sonar-scanne -Dsonar.projectName=Shopping-Cart \
                     -Dsonar.projectKey=Shopping-Cart \
                     -Dsonar.projectValue=1.0 \
-                    -Dsonar.java.binaries=. 
+                    -Dsonar.java.binaries=. ''' 
                 }
             }
         }
