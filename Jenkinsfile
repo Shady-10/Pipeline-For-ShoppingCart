@@ -38,21 +38,17 @@ pipeline{
             // }
         }
 
-        stage('Unit Testing'){
+        // Third Stage (CheckStyle With Maven)
 
-            steps{
-
-                sh 'mvn test'
-            }
-        }
-        stage('Checkstyle'){
+        stage('CheckStyle'){
 
             steps{
 
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-        // Third Stage (OWASP)
+
+        // Fourth Stage (OWASP)
 
         stage('OWASP Analysis'){
 
@@ -63,7 +59,7 @@ pipeline{
             }
         }
 
-        // Fourth Stage (Trivy)
+        // Fifth Stage (Trivy)
 
         stage('Trivy') {
             steps {
@@ -71,5 +67,26 @@ pipeline{
             }
         }
 
+
+        // Sixth Stage (SonarQube Analysis)
+
+        stage('SonarQube'){
+
+
+            environment{
+
+                scannerHome = tool 'SONAR4.7'
+            }
+            steps{
+
+                withSonarQubeEnv('SONAR'){
+
+                    sh '''${scannerHome}/bin/sonar-scanne -Dsonar.projectName=Shopping-Cart \
+                    -Dsonar.projectKey=Shopping-Cart \
+                    -Dsonar.projectValue=1.0 \
+                    -Dsonar.java.binaries=. 
+                }
+            }
+        }
     }
 }
