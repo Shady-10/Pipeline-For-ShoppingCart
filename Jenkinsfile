@@ -102,7 +102,8 @@ pipeline{
                     protocol: 'http',
                     nexusUrl: '172.31.87.104:8081',
                     groupid: 'QA',
-                    repositry: 'Shopping-Cart',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: 'Shopping-Cart',
                     credentialsId: 'nexuslogin',
                     artifacts: [
                         artifactId: 'shopping-cart',
