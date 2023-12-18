@@ -29,13 +29,13 @@ pipeline{
                 sh 'mvn install -DskipTests'
             }
 
-            post{
-                success{
+            // post{
+            //     success{
 
-                    echo 'Archieving The Artifact ...'
-                    archiveArtifacts artifacts: '**/*.jar'
-                }
-            }
+            //         echo 'Archieving The Artifact ...'
+            //         archiveArtifacts artifacts: '**/*.jar'
+            //     }
+            // }
         }
 
     }
