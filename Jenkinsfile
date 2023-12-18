@@ -38,5 +38,24 @@ pipeline{
             // }
         }
 
+        // Third Stage (OWASP)
+
+        stage('OASP Analysis'){
+
+            steps{
+
+                dependencyCheck additionalArguments: '-s ./' , odcInstallation: 'DC'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+
+        // Fourth Stage (Trivy)
+
+        stage('Trivy') {
+            steps {
+                sh 'trivy fs .'
+            }
+        }
+
     }
 }
