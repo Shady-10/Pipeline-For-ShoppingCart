@@ -114,5 +114,38 @@ pipeline{
                 )
             }
         }
+
+        // Eigth Stage (Building Docker Image)
+
+        stage('Docker Image'){
+
+            steps{
+
+                script{
+
+                    withDockerRegistry(credentialsId: 'dockerlogin' , toolName: 'Docker'){
+
+                        sh 'docker build -t shopping-cart:dev -f docker/Dockerfile'
+                        sh 'docker tag shopping-cart:dev shady25/shopping-cart:dev'
+                    }
+                }
+            }
+        }
+
+        // Eigth Stage (Pushing The Docker Image To DockerHub)
+
+        stage('Pushing The Docker Image'){
+
+            steps{
+
+                script{
+
+                    withDockerRegistry(credentialsId: 'dockerlogin' , toolName: 'Docker'){
+
+                        sh 'docker push shady25/shopping-cart:dev'
+                    }
+                }
+            }
+        }
     }
 }
