@@ -1,6 +1,6 @@
 pipeline{
 
-    agent ant 
+    agent any
 
     tools{
 
@@ -37,6 +37,6 @@ pipeline{
                 }
             }
         }
-        
+
     }
 }
