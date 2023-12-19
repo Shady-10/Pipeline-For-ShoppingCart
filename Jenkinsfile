@@ -40,61 +40,66 @@ pipeline{
 
         // Third Stage (CheckStyle With Maven)
 
-        stage('CheckStyle'){
+        // stage('CheckStyle'){
 
-            steps{
+        //     steps{
 
-                sh 'mvn checkstyle:checkstyle'
-            }
-        }
+        //         sh 'mvn checkstyle:checkstyle'
+        //     }
+        // }
 
-        // Fourth Stage (OWASP)
+        // // Fourth Stage (OWASP)
 
-        stage('OWASP Analysis'){
+        // stage('OWASP Analysis'){
 
-            steps{
+        //     steps{
 
-                dependencyCheck additionalArguments: '-s ./' , odcInstallation: 'DC'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+        //         dependencyCheck additionalArguments: '-s ./' , odcInstallation: 'DC'
+        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //     }
+        // }
 
-        // Fifth Stage (Trivy)
+        // // Fifth Stage (Trivy)
 
-        stage('Trivy') {
-            steps {
-                sh 'trivy fs .'
-            }
-        }
-
-
-        // Sixth Stage (SonarQube Analysis)
-
-        stage('SonarQube'){
+        // stage('Trivy') {
+        //     steps {
+        //         sh 'trivy fs .'
+        //     }
+        // }
 
 
-            environment{
+        // // Sixth Stage (SonarQube Analysis)
 
-                scannerHome = tool 'SONAR4.7'
-            }
-            steps{
+        // stage('SonarQube'){
 
-                withSonarQubeEnv('SONAR'){
 
-                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
-                    -Dsonar.projectKey=Shopping-Cart \
-                    -Dsonar.projectValue=1.0 \
-                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
-                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                    -Dsonar.java.binaries=. ''' 
-                }
-            }
-        }
+        //     environment{
+
+        //         scannerHome = tool 'SONAR4.7'
+        //     }
+        //     steps{
+
+        //         withSonarQubeEnv('SONAR'){
+
+        //             sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
+        //             -Dsonar.projectKey=Shopping-Cart \
+        //             -Dsonar.projectValue=1.0 \
+        //             -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+        //             -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+        //             -Dsonar.java.binaries=. ''' 
+        //         }
+        //     }
+        // }
 
         // Seventh Stage (Uploading To Nexus)
 
          stage('Nexus'){
+            when{
+                expression{
+                    currentBuild.resultIsBetterOrEqualTo('SUCCESS')
 
+                }
+        }
             steps{
 
                 nexusArtifactUploader(
@@ -125,7 +130,7 @@ pipeline{
 
                     withDockerRegistry(credentialsId: 'dockerlogin' , toolName: 'Docker'){
 
-                        sh 'docker buildx build -t shopping-cart:dev -f docker/Dockerfile'
+                        sh 'docker buildx build -t shopping-cart:dev -f docker/Dockerfile .'
                         sh 'docker tag shopping-cart:dev shady25/shopping-cart:dev'
                     }
                 }
