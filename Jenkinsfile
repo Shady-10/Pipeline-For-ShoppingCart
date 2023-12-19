@@ -125,7 +125,7 @@ pipeline{
 
                     withDockerRegistry(credentialsId: 'dockerlogin' , toolName: 'Docker'){
 
-                        sh 'docker build -t shopping-cart:dev -f docker/Dockerfile'
+                        sh 'docker buildx build -t shopping-cart:dev -f docker/Dockerfile'
                         sh 'docker tag shopping-cart:dev shady25/shopping-cart:dev'
                     }
                 }
