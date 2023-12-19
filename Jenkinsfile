@@ -152,5 +152,22 @@ pipeline{
                 }
             }
         }
+
+        // Ninth Stage (Deploying The Application)
+
+        stage('Deploy'){
+
+            steps{
+
+                script{
+
+                    withDockerRegistry(credentialsId: 'dockerlogin' , toolName: 'Docker'){
+
+                        sh 'docker run -d --name cart -p 8070:8070 shady25/shopping-cart:dev'
+                    }
+                }
+            }
+        }
+
     }
 }
