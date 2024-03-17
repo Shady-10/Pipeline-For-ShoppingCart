@@ -1,3 +1,35 @@
+# Jenkins CI/CD 
+
+## Overview
+
+The pipeline is designed to automate the build, test, and deployment processes for the shopping cart application. It starts by fetching the code from a Git repository, then builds the artifact using Maven. Next, it performs CheckStyle to ensure code quality, OWASP analysis for security vulnerabilities, and Trivy for container image scanning. It then runs SonarQube for comprehensive code analysis and uploads the artifact to Nexus. Finally, it builds a Docker image, pushes it to DockerHub, and deploys the application using Docker.
+
+## Prerequisites:
+- Java Development Kit (JDK) 11
+- Apache Maven 3
+- Docker
+- SonarQube
+- Nexus Repository Manager
+- OWASP Dependency Check
+- Trivy
+
+## Pipeline Stages:
+1. **Fetch Code:** Fetches the code from the Git repository.
+2. **Build Artifact:** Builds the artifact using Maven, skipping tests.
+3. **CheckStyle:** Performs CheckStyle to ensure code style compliance.
+4. **OWASP Analysis:** Analyzes dependencies for security vulnerabilities using OWASP Dependency Check.
+5. **Trivy:** Scans the Docker image for vulnerabilities using Trivy.
+6. **SonarQube Analysis:** Analyzes the code quality using SonarQube.
+7. **Upload to Nexus:** Uploads the artifact to Nexus Repository Manager.
+8. **Build Docker Image:** Builds a Docker image for the application.
+9. **Push Docker Image:** Pushes the Docker image to DockerHub.
+10. **Deploy:** Deploys the application using Docker.
+
+## Usage:
+- Clone the repository: `git clone https://github.com/Shady-10/Pipeline-For-ShoppingCart.git`
+- Run the pipeline using Jenkins or any CI/CD tool.
+
+
 # Spring Boot Shopping Cart Web App
 
 ## About
